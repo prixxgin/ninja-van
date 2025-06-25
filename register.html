@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Van Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="form-container">
+                <h2>Create Account</h2>
+                <form id="registerForm">
+                    <div class="input-group">
+                        <input type="text" id="fullName" required>
+                        <label for="fullName">Full Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" required>
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="confirmPassword" required>
+                        <label for="confirmPassword">Confirm Password</label>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                    <div class="register-link">
+                        <p>Already have an account? <a href="index.html">Login</a></p>
+                    </div>
+                </form>
+            </div>
+            <div class="image-container">
+                <img src="images/ninjavan-logo.png" alt="Ninja Van Logo" class="logo">
+                <img src="images/delivery.png" alt="Delivery Illustration" class="delivery">
+                <h3>Join Our Network</h3>
+                <p>Be part of Southeast Asia's leading logistics solution</p>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+        
+        // Get the current site URL (works for both localhost and deployed sites)
+        const siteUrl = window.location.protocol + '//' + window.location.host;
+        
+        window.supabase = createClient(
+            'https://njogrxcjjqcojssmwaly.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5qb2dyeGNqanFjb2pzc213YWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyMTg2NTQsImV4cCI6MjA2NTc5NDY1NH0.3Pn5EdJdm93mi5rCQS1vkNR_2U73GFtvSk5Vt7-eJPI',
+            {
+                auth: {
+                    autoRefreshToken: true,
+                    persistSession: true,
+                    detectSessionInUrl: true,
+                    storageKey: 'supabase-auth',
+                    flowType: 'pkce',
+                    redirectTo: siteUrl + '/index.html'
+                }
+            }
+        );
+    </script>
+    <script src="auth.js"></script>
+</body>
+</html> 

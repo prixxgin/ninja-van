@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Van Service - Restock Economy Parcel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>INPUT HERE ℹ️</h1>
+            <form id="deliveryForm">
+                <div class="form-group">
+                    <label for="sellingModel">Selling Model</label>
+                    <select id="sellingModel" required>
+                        <option value="3P">3P</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="distributionType">Distribution Type</label>
+                    <select id="distributionType" required>
+                        <option value="Consignment">Consignment</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sla">SLA</label>
+                    <select id="sla" required>
+                        <option value="Economy">Economy</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="parcelProfile">Parcel Profile</label>
+                    <select id="parcelProfile" required>
+                        <option value="Mostly smaller than 100kg per TID">Mostly smaller than 100kg per TID</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pickup">Pickup</label>
+                    <select id="pickup" required>
+                        <option value="Client to bring to CBY">Client to bring to CBY</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="lastMileDelivery">Last Mile Delivery</label>
+                    <select id="lastMileDelivery" required>
+                        <option value="NV delivery to Client">NV delivery to Client</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="deliveryPoints">Delivery Points</label>
+                    <select id="deliveryPoints" required>
+                        <option value="Not in the List">Not in the List</option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="service-info">
+                <h2>Restock Economy Parcel</h2>
+                <p class="subtitle">Core Economy LM</p>
+            </div>
+
+            <div class="rate-info">
+                <div class="rate-row">
+                    <span>Rate Card:</span>
+                    <a href="https://docs.google.com/spreadsheets/d/149E9" target="_blank">View Rate Card</a>
+                </div>
+                <div class="rate-row">
+                    <span>Rate Charge:</span>
+                    <span>KG per TID</span>
+                </div>
+                <div class="rate-row">
+                    <span>Minimum Charge:</span>
+                    <span>0 KG</span>
+                </div>
+                <div class="rate-row">
+                    <span>Delivered by:</span>
+                    <span>Core</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="delivery-points">
+            <h3>Listed Delivery Points</h3>
+            <div class="points-list">
+                <div class="points-column">
+                    <ul>
+                        <li>SM - SVI, SSM, SMCO, Sanford</li>
+                        <li>Puregold</li>
+                        <li>Waltermart</li>
+                        <li>Robinsons</li>
+                        <li>Landmark</li>
+                        <li>S&R</li>
+                        <li>Citmart</li>
+                        <li>SNEX</li>
+                        <li>Royal Duty Free</li>
+                        <li>Liteshoes Corporation</li>
+                    </ul>
+                </div>
+                <div class="points-column">
+                    <ul>
+                        <li>Metro Gaisano, Giasano Capital</li>
+                        <li>Ultra Mega</li>
+                        <li>Super8</li>
+                        <li>LCC</li>
+                        <li>CSI</li>
+                        <li>South Super</li>
+                        <li>RDS</li>
+                        <li>Suysing</li>
+                        <li>Chain2</li>
+                        <li>Philippine Seven</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sla-reference">
+                <h3>SLAs for Reference (Islands not included)</h3>
+                <div class="sla-grid">
+                    <div class="sla-column">
+                        <h4>Standard</h4>
+                        <ul>
+                            <li>Metro Manila - 1 to 3 days</li>
+                            <li>GMA - 1 to 3 days</li>
+                            <li>North Luzon - 3 to 5 days</li>
+                            <li>South Luzon - 3 to 5 days</li>
+                        </ul>
+                    </div>
+                    <div class="sla-column">
+                        <h4>Economy</h4>
+                        <ul>
+                            <li>Metro Manila - 4 to 6 days</li>
+                            <li>GMA - 4 to 6 days</li>
+                            <li>North Luzon - 4 to 6 days</li>
+                            <li>South Luzon - 4 to 6 days</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

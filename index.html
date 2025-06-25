@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ninja Van Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -65,25 +68,30 @@
 
             <div class="service-info">
                 <h2>Ninja Van Service</h2>
-                <div class="product-status">PRODUCT DOESN'T EXIST</div>
-                <p class="subtitle">delivery required for Modern Trade</p>
+                <div id="productStatus" class="status-message"></div>
+                <div id="subtitle" class="subtitle"></div>
             </div>
 
             <div class="rate-info">
                 <div class="info-row">
-                    <span>Rate Card</span>
+                    <span class="info-label">Rate Card:</span>
+                    <span id="rateCardValue" class="info-value">-</span>
                 </div>
                 <div class="info-row">
-                    <span>Rate Charge</span>
+                    <span class="info-label">Rate Charge:</span>
+                    <span id="rateChargeValue" class="info-value">-</span>
                 </div>
                 <div class="info-row">
-                    <span>Minimum Charge</span>
+                    <span class="info-label">Minimum Charge:</span>
+                    <span id="minimumChargeValue" class="info-value">-</span>
                 </div>
                 <div class="info-row">
-                    <span>Delivered by</span>
+                    <span class="info-label">Delivered by:</span>
+                    <span id="deliveredByValue" class="info-value">-</span>
                 </div>
                 <div class="info-row">
-                    <span>Coverage</span>
+                    <span class="info-label">Coverage:</span>
+                    <span id="coverageValue" class="info-value">-</span>
                 </div>
                 <div class="info-row">
                     <span>RDD SLA</span>

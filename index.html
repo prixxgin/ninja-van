@@ -3,79 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ninja Van Service - Restock Economy Parcel</title>
+    <title>Ninja Van Service</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="form-container">
+        <div class="main-section">
             <h1>INPUT HERE ℹ️</h1>
             <form id="deliveryForm">
                 <div class="form-group">
                     <label for="sellingModel">Selling Model</label>
-                    <select id="sellingModel" required>
+                    <select id="sellingModel" class="red-select" required>
                         <option value="3P">3P</option>
+                        <option value="1P">1P</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="distributionType">Distribution Type</label>
-                    <select id="distributionType" required>
+                    <select id="distributionType" class="red-select" required>
                         <option value="Consignment">Consignment</option>
+                        <option value="Outright">Outright</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="sla">SLA</label>
-                    <select id="sla" required>
+                    <select id="sla" class="red-select" required>
+                        <option value="Fixed Delivery Schedule">Fixed Delivery Schedule</option>
+                        <option value="Standard">Standard</option>
                         <option value="Economy">Economy</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="parcelProfile">Parcel Profile</label>
-                    <select id="parcelProfile" required>
+                    <select id="parcelProfile" class="red-select" required>
                         <option value="Mostly smaller than 100kg per TID">Mostly smaller than 100kg per TID</option>
+                        <option value="Mostly >=100kg per TID">Mostly >=100kg per TID</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="pickup">Pickup</label>
-                    <select id="pickup" required>
+                    <select id="pickup" class="red-select" required>
                         <option value="Client to bring to CBY">Client to bring to CBY</option>
+                        <option value="NV pickup at Client WH">NV pickup at Client WH</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="lastMileDelivery">Last Mile Delivery</label>
-                    <select id="lastMileDelivery" required>
+                    <select id="lastMileDelivery" class="red-select" required>
+                        <option value="Client pickup at NV WH">Client pickup at NV WH</option>
                         <option value="NV delivery to Client">NV delivery to Client</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="deliveryPoints">Delivery Points</label>
-                    <select id="deliveryPoints" required>
+                    <select id="deliveryPoints" class="red-select" required>
+                        <option value="Listed Delivery Point">Listed Delivery Point</option>
                         <option value="Not in the List">Not in the List</option>
                     </select>
                 </div>
             </form>
 
             <div class="service-info">
-                <h2>Restock Economy Parcel</h2>
-                <p class="subtitle">Core Economy LM</p>
+                <h2>Ninja Van Service</h2>
+                <div class="product-status">PRODUCT DOESN'T EXIST</div>
+                <p class="subtitle">delivery required for Modern Trade</p>
             </div>
 
             <div class="rate-info">
-                <div class="rate-row">
-                    <span>Rate Card:</span>
-                    <a href="https://docs.google.com/spreadsheets/d/149E9" target="_blank">View Rate Card</a>
+                <div class="info-row">
+                    <span>Rate Card</span>
                 </div>
-                <div class="rate-row">
-                    <span>Rate Charge:</span>
-                    <span>KG per TID</span>
+                <div class="info-row">
+                    <span>Rate Charge</span>
                 </div>
-                <div class="rate-row">
-                    <span>Minimum Charge:</span>
-                    <span>0 KG</span>
+                <div class="info-row">
+                    <span>Minimum Charge</span>
                 </div>
-                <div class="rate-row">
-                    <span>Delivered by:</span>
-                    <span>Core</span>
+                <div class="info-row">
+                    <span>Delivered by</span>
+                </div>
+                <div class="info-row">
+                    <span>Coverage</span>
+                </div>
+                <div class="info-row">
+                    <span>RDD SLA</span>
+                    <span>Forward SLA x 2) + 3 working days</span>
+                </div>
+                <div class="info-row">
+                    <span>RDD SLA</span>
+                    <span>(Forward SLA x 2) + 3 working days, upon pickup of new shipment</span>
                 </div>
             </div>
         </div>
@@ -123,6 +139,8 @@
                             <li>GMA - 1 to 3 days</li>
                             <li>North Luzon - 3 to 5 days</li>
                             <li>South Luzon - 3 to 5 days</li>
+                            <li>Visayas - 5 to 7 days</li>
+                            <li>Mindanao - 5 to 7 days</li>
                         </ul>
                     </div>
                     <div class="sla-column">
@@ -132,6 +150,8 @@
                             <li>GMA - 4 to 6 days</li>
                             <li>North Luzon - 4 to 6 days</li>
                             <li>South Luzon - 4 to 6 days</li>
+                            <li>Visayas - 6 to 10 days</li>
+                            <li>Mindanao - 10 to 14 days</li>
                         </ul>
                     </div>
                 </div>

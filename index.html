@@ -10,96 +10,150 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="main-section">
-            <h1>INPUT HERE ℹ️</h1>
-            <form id="deliveryForm">
-                <div class="form-group">
-                    <label for="sellingModel">Selling Model</label>
-                    <select id="sellingModel" class="red-select" required>
-                        <option value="3P">3P</option>
-                        <option value="1P">1P</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="distributionType">Distribution Type</label>
-                    <select id="distributionType" class="red-select" required>
-                        <option value="Consignment">Consignment</option>
-                        <option value="Outright">Outright</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sla">SLA</label>
-                    <select id="sla" class="red-select" required>
-                        <option value="Fixed Delivery Schedule">Fixed Delivery Schedule</option>
-                        <option value="Standard">Standard</option>
-                        <option value="Economy">Economy</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="parcelProfile">Parcel Profile</label>
-                    <select id="parcelProfile" class="red-select" required>
-                        <option value="Mostly smaller than 100kg per TID">Mostly smaller than 100kg per TID</option>
-                        <option value="Mostly >=100kg per TID">Mostly >=100kg per TID</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="pickup">Pickup</label>
-                    <select id="pickup" class="red-select" required>
-                        <option value="Client to bring to CBY">Client to bring to CBY</option>
-                        <option value="NV pickup at Client WH">NV pickup at Client WH</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="lastMileDelivery">Last Mile Delivery</label>
-                    <select id="lastMileDelivery" class="red-select" required>
-                        <option value="Client pickup at NV WH">Client pickup at NV WH</option>
-                        <option value="NV delivery to Client">NV delivery to Client</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="deliveryPoints">Delivery Points</label>
-                    <select id="deliveryPoints" class="red-select" required>
-                        <option value="Listed Delivery Point">Listed Delivery Point</option>
-                        <option value="Not in the List">Not in the List</option>
-                    </select>
-                </div>
-            </form>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="images/ninjavan-logo.png" alt="Ninja Van Logo" class="logo">
+            </div>
+            <h1 class="header-title">B2B Services Mapping</h1>
+        </div>
+    </header>
 
-            <div class="service-info">
-                <h2>Ninja Van Service</h2>
-                <div id="productStatus" class="status-message"></div>
-                <div id="subtitle" class="subtitle"></div>
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="main-section">
+                <h2 class="section-title">INPUT HERE ℹ️</h2>
+                <form id="deliveryForm">
+                    <div class="form-group">
+                        <label>Selling Model</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="sellingModel3P" name="sellingModel" value="3P" checked>
+                                <label for="sellingModel3P">3P</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="sellingModel1P" name="sellingModel" value="1P">
+                                <label for="sellingModel1P">1P</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Distribution Type</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="distributionTypeConsignment" name="distributionType" value="Consignment" checked>
+                                <label for="distributionTypeConsignment">Consignment</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="distributionTypeOutright" name="distributionType" value="Outright">
+                                <label for="distributionTypeOutright">Outright</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>SLA</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="slaFixed" name="sla" value="Fixed Delivery Schedule" checked>
+                                <label for="slaFixed">Fixed Delivery Schedule</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="slaStandard" name="sla" value="Standard">
+                                <label for="slaStandard">Standard</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="slaEconomy" name="sla" value="Economy">
+                                <label for="slaEconomy">Economy</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Parcel Profile</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="parcelProfileSmall" name="parcelProfile" value="Mostly smaller than 100kg per TID" checked>
+                                <label for="parcelProfileSmall">Mostly smaller than 100kg per TID</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="parcelProfileLarge" name="parcelProfile" value="Mostly >=100kg per TID">
+                                <label for="parcelProfileLarge">Mostly >=100kg per TID</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pickup</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="pickupClient" name="pickup" value="Client to bring to CBY" checked>
+                                <label for="pickupClient">Client to bring to CBY</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="pickupNV" name="pickup" value="NV pickup at Client WH">
+                                <label for="pickupNV">NV pickup at Client WH</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Mile Delivery</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="lastMileDeliveryClient" name="lastMileDelivery" value="Client pickup at NV WH" checked>
+                                <label for="lastMileDeliveryClient">Client pickup at NV WH</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="lastMileDeliveryNV" name="lastMileDelivery" value="NV delivery to Client">
+                                <label for="lastMileDeliveryNV">NV delivery to Client</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Delivery Points</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="deliveryPointsListed" name="deliveryPoints" value="Listed Delivery Point" checked>
+                                <label for="deliveryPointsListed">Listed Delivery Point</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="deliveryPointsNotListed" name="deliveryPoints" value="Not in the List">
+                                <label for="deliveryPointsNotListed">Not in the List</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
 
-            <div class="rate-info">
-                <div class="info-row">
-                    <span class="info-label">Rate Card:</span>
-                    <span id="rateCardValue" class="info-value">-</span>
+            <div class="side-section">
+                <div class="service-status">
+                    <h2 class="service-title">Ninja Van Service</h2>
+                    <div id="productStatus" class="status-message"></div>
+                    <div id="subtitle" class="subtitle"></div>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Rate Charge:</span>
-                    <span id="rateChargeValue" class="info-value">-</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Minimum Charge:</span>
-                    <span id="minimumChargeValue" class="info-value">-</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Delivered by:</span>
-                    <span id="deliveredByValue" class="info-value">-</span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Coverage:</span>
-                    <span id="coverageValue" class="info-value">-</span>
-                </div>
-                <div class="info-row">
-                    <span>RDD SLA</span>
-                    <span>Forward SLA x 2) + 3 working days</span>
-                </div>
-                <div class="info-row">
-                    <span>RDD SLA</span>
-                    <span>(Forward SLA x 2) + 3 working days, upon pickup of new shipment</span>
+
+                <div class="rate-info">
+                    <div class="info-row">
+                        <span class="info-label">Rate Card:</span>
+                        <span id="rateCardValue" class="info-value">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Rate Charge:</span>
+                        <span id="rateChargeValue" class="info-value">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Minimum Charge:</span>
+                        <span id="minimumChargeValue" class="info-value">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Delivered by:</span>
+                        <span id="deliveredByValue" class="info-value">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Coverage:</span>
+                        <span id="coverageValue" class="info-value">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">RDD SLA:</span>
+                        <span id="rddSlaValue" class="info-value">-</span>
+                    </div>
                 </div>
             </div>
         </div>

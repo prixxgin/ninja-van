@@ -3,136 +3,425 @@ document.addEventListener('DOMContentLoaded', function() {
     const productStatus = document.getElementById('productStatus');
     const subtitle = document.getElementById('subtitle');
     
-    // Get all form select elements
-    const sellingModel = document.getElementById('sellingModel');
-    const distributionType = document.getElementById('distributionType');
-    const sla = document.getElementById('sla');
-    const parcelProfile = document.getElementById('parcelProfile');
-    const pickup = document.getElementById('pickup');
-    const lastMileDelivery = document.getElementById('lastMileDelivery');
-    const deliveryPoints = document.getElementById('deliveryPoints');
+    // Get all form radio button groups
+    function getSelectedValue(name) {
+        const selected = document.querySelector(`input[name="${name}"]:checked`);
+        return selected ? selected.value : '';
+    }
 
-    // Add change event listeners to all select elements
-    const selects = form.querySelectorAll('select');
-    selects.forEach(select => {
-        select.addEventListener('change', updateProductStatus);
+    // Function to toggle distribution type based on selling model
+    function toggleDistributionType() {
+        const sellingModel = getSelectedValue('sellingModel');
+        const distributionTypeGroup = document.querySelector('.form-group:has(input[name="distributionType"])');
+        const distributionTypeInputs = document.querySelectorAll('input[name="distributionType"]');
+        
+        if (sellingModel === '1P') {
+            distributionTypeGroup.classList.add('disabled-group');
+            distributionTypeInputs.forEach(input => {
+                input.disabled = true;
+                input.checked = false;
+            });
+        } else {
+            distributionTypeGroup.classList.remove('disabled-group');
+            distributionTypeInputs.forEach(input => {
+                input.disabled = false;
+            });
+            // Set default value for 3P
+            if (!getSelectedValue('distributionType')) {
+                document.querySelector('input[name="distributionType"][value="Consignment"]').checked = true;
+            }
+        }
+        updateProductStatus();
+    }
+
+    // Add change event listeners to all radio buttons
+    const radioButtons = form.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(radio => {
+        if (radio.name === 'sellingModel') {
+            radio.addEventListener('change', toggleDistributionType);
+        }
+        radio.addEventListener('change', updateProductStatus);
     });
 
-    // Lookup data for service offerings
-    const serviceData = {
-        'Freight': {
-            rateCard: 'https://docs.google.com/spreadsheets',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '1 CBM',
-            deliveredBy: 'none',
-            coverage: 'CBY & NV Warehouses'
+    // Initialize distribution type state
+    toggleDistributionType();
+
+    // Definition sheet lookup data (columns I, J, and K)
+    const definitionLookup = {
+        "Core Standard FMLM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
         },
-        'Core Standard FMLM': {
-            rateCard: 'https://docs.google.com/spreadsheets',
-            rateCharge: 'KG per TID',
-            minimumCharge: '0 KG',
-            deliveredBy: 'Core',
-            coverage: 'All Core coverage'
+        "Core Standard LM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
         },
-        'Core Standard LM': {
-            rateCard: 'https://docs.google.com/spreadsheets',
-            rateCharge: 'KG per TID',
-            minimumCharge: '0 KG',
-            deliveredBy: 'Core',
-            coverage: 'All Core coverage'
+        "LTL Standard FMLM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
         },
-        'LTL Standard FMLM': {
-            rateCard: 'https://docs.google.com/spreadsheets',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '2 CBM',
-            deliveredBy: 'Restock',
-            coverage: 'No islands'
+        "LTL Standard LM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
         },
-        'LTL Standard LM': {
-            rateCard: 'https://docs.google.com/spreadsheets',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '2 CBM',
-            deliveredBy: 'Restock',
-            coverage: 'GCR, Calabarzon, South Luzon'
+        "Core Economy FMLM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
         },
-        'Core Economy FMLM': {
-            rateCard: 'https://docs.google.com/spreadsheets',
-            rateCharge: 'KG per TID',
-            minimumCharge: '0 KG',
-            deliveredBy: 'Middle Mile',
-            coverage: 'All Core coverage'
+        "Core Economy LM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
         },
-        'Core Economy LM': {
-            rateCard: 'https://docs.google.com/spreadsheets',
-            rateCharge: 'KG per TID',
-            minimumCharge: '0 KG',
-            deliveredBy: 'Middle Mile',
-            coverage: 'All Core coverage'
+        "LTL Economy FMLM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
         },
-        'LTL Economy FMLM': {
-            rateCard: 'https://docs.google.com/spreadsheets',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '2.5 CBM',
-            deliveredBy: 'Restock',
-            coverage: 'No islands'
+        "LTL Economy FM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
         },
-        'LTL Economy FM': {
-            rateCard: 'https://docs.google.com/spreadsheets',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '2.5 CBM',
-            deliveredBy: 'Middle Mile & Railway',
-            coverage: 'No islands'
+        "LTL Economy LM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
         },
-        'LTL Economy LM': {
-            rateCard: 'https://docs.google.com/spreadsheets',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '2.5 CBM',
-            deliveredBy: 'Middle Mile & Railway',
-            coverage: 'No islands'
+        "Modern Trade SLA FMLM": {
+            rateCard: "Custom, approval required",
+            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
-        'Modern Trade SLA FMLM': {
-            rateCard: 'Custom, approval required',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '1 CBM',
-            deliveredBy: 'Restock',
-            coverage: 'GCR, Calabarzon, South Luzon'
+        "Modern Trade SLA LM": {
+            rateCard: "Custom, approval required",
+            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
-        'Modern Trade SLA LM': {
-            rateCard: 'Custom, approval required',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '1 CBM',
-            deliveredBy: 'Restock',
-            coverage: 'GCR, Calabarzon, South Luzon'
+        "Modern Trade Economy FMLM": {
+            rateCard: "Custom, approval required",
+            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
-        'Modern Trade Economy FMLM': {
-            rateCard: 'Custom, approval required',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '1 CBM',
-            deliveredBy: 'Railway',
-            coverage: 'GCR, Calabarzon, South Luzon'
+        "Modern Trade Economy LM": {
+            rateCard: "Custom, approval required",
+            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
-        'Modern Trade Economy LM': {
-            rateCard: 'Custom, approval required',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '1 CBM',
-            deliveredBy: 'Railway',
-            coverage: 'GCR, Calabarzon, South Luzon'
+        "Modern Trade FDS FMLM": {
+            rateCard: "Custom, approval required",
+            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
-        'Modern Trade FDS FMLM': {
-            rateCard: 'Custom, approval required',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '1 CBM',
-            deliveredBy: 'Railway',
-            coverage: 'GCR, Calabarzon, South Luzon'
+        "Modern Trade FDS LM": {
+            rateCard: "Custom, approval required",
+            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
-        'Modern Trade FDS LM': {
-            rateCard: 'Custom, approval required',
-            rateCharge: 'CBM per MPS',
-            minimumCharge: '1 CBM',
-            deliveredBy: 'Railway',
-            coverage: 'GCR, Calabarzon, South Luzon'
+        "Freight": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
+        },
+        "Freight auto Economy": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rddSla: "Forward SLA x 2) + 3 working days"
         }
     };
+
+    // Service data for rate info
+    const serviceData = {
+        "Core Standard FMLM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 80",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        },
+        "Core Standard LM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 80",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        },
+        "LTL Standard FMLM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 1500",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        },
+        "LTL Standard LM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 1500",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        },
+        "Core Economy FMLM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 60",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        },
+        "Core Economy LM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 60",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        },
+        "LTL Economy FMLM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 1200",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        },
+        "LTL Economy FM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 1200",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        },
+        "LTL Economy LM": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 1200",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        },
+        "Modern Trade SLA FMLM": {
+            rateCard: "Custom, approval required",
+            rateCharge: "Custom rate",
+            minimumCharge: "Custom rate",
+            deliveredBy: "Ninja Van",
+            coverage: "Based on delivery points"
+        },
+        "Modern Trade SLA LM": {
+            rateCard: "Custom, approval required",
+            rateCharge: "Custom rate",
+            minimumCharge: "Custom rate",
+            deliveredBy: "Ninja Van",
+            coverage: "Based on delivery points"
+        },
+        "Modern Trade Economy FMLM": {
+            rateCard: "Custom, approval required",
+            rateCharge: "Custom rate",
+            minimumCharge: "Custom rate",
+            deliveredBy: "Ninja Van",
+            coverage: "Based on delivery points"
+        },
+        "Modern Trade Economy LM": {
+            rateCard: "Custom, approval required",
+            rateCharge: "Custom rate",
+            minimumCharge: "Custom rate",
+            deliveredBy: "Ninja Van",
+            coverage: "Based on delivery points"
+        },
+        "Modern Trade FDS FMLM": {
+            rateCard: "Custom, approval required",
+            rateCharge: "Custom rate",
+            minimumCharge: "Custom rate",
+            deliveredBy: "Ninja Van",
+            coverage: "Based on delivery points"
+        },
+        "Modern Trade FDS LM": {
+            rateCard: "Custom, approval required",
+            rateCharge: "Custom rate",
+            minimumCharge: "Custom rate",
+            deliveredBy: "Ninja Van",
+            coverage: "Based on delivery points"
+        },
+        "Freight": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 2000",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        },
+        "Freight auto Economy": {
+            rateCard: "https://docs.google.com/spreadsheets",
+            rateCharge: "Based on weight and destination",
+            minimumCharge: "PHP 2000",
+            deliveredBy: "Ninja Van",
+            coverage: "Nationwide"
+        }
+    };
+
+    // Lookup function (equivalent to Excel's XLOOKUP)
+    function xlookup(lookupValue, lookupData, column, notFoundValue = "") {
+        if (!lookupValue || lookupValue === "please complete all fields") {
+            return "-";
+        }
+        const data = lookupData[lookupValue];
+        return data ? data[column] : notFoundValue;
+    }
+
+    function updateProductStatus() {
+        const values = {
+            sellingModel: getSelectedValue('sellingModel'),
+            distributionType: getSelectedValue('distributionType'),
+            sla: getSelectedValue('sla'),
+            parcelProfile: getSelectedValue('parcelProfile'),
+            pickup: getSelectedValue('pickup'),
+            lastMileDelivery: getSelectedValue('lastMileDelivery'),
+            deliveryPoints: getSelectedValue('deliveryPoints')
+        };
+
+        console.log('Current values:', values); // Debug log
+
+        const result = calculateProduct(values);
+        
+        // Update product status
+        productStatus.textContent = result.product || "PRODUCT DOESN'T EXIST";
+        subtitle.textContent = result.subtitle || "";
+
+        // Update rate info based on the product
+        updateRateInfo(result.product);
+    }
+
+    function calculateProduct(values) {
+        let productCode = "";
+        const {
+            sellingModel,          // C3: Business Type (1P/3P)
+            distributionType,      // C4: Engagement Model
+            sla,                   // C5: Delivery Model
+            parcelProfile,         // C6: Volume
+            pickup,               // C7: Pickup
+            lastMileDelivery,     // C8: Delivery
+            deliveryPoints        // C9: Listing Status
+        } = values;
+
+        // Check for empty required fields
+        if (!sellingModel) {
+            return { product: productCode, subtitle: "please complete all fields" };
+        }
+
+        // 1P Logic
+        if (sellingModel === "1P") {
+            // Check required fields for 1P
+            if (!sla || !parcelProfile || !pickup || !lastMileDelivery) {
+                return { product: "PRODUCT DOESN'T EXIST", subtitle: "please complete all fields" };
+            }
+
+            // Fixed Delivery Schedule not available case
+            if (sla === "Fixed Delivery Schedule" && 
+                pickup === "Client to bring to CBY" && 
+                lastMileDelivery === "Client pickup at NV WH") {
+                return { product: "PRODUCT DOESN'T EXIST", subtitle: "not available" };
+            }
+
+            // Freight cases
+            if (pickup === "Client to bring to CBY" && lastMileDelivery === "Client pickup at NV WH") {
+                if (sla === "Economy") {
+                    productCode = "Freight";
+                } else if (sla === "Standard" || sla === "Fixed Delivery Schedule") {
+                    productCode = "Freight auto Economy";
+                }
+                return { product: productCode };
+            }
+
+            // Volume-based logic for smaller than 100kg
+            if (parcelProfile === "Mostly smaller than 100kg per TID") {
+                if (sla === "Economy") {
+                    if (pickup === "NV pickup at Client WH" && lastMileDelivery === "NV delivery to Client") {
+                        productCode = "Core Economy FMLM";
+                    } else if (pickup === "Client to bring to CBY" && lastMileDelivery === "NV delivery to Client") {
+                        productCode = "Core Economy LM";
+                    }
+                } else if (sla === "Standard") {
+                    if (pickup === "NV pickup at Client WH" && lastMileDelivery === "NV delivery to Client") {
+                        productCode = "Core Standard FMLM";
+                    } else if (pickup === "Client to bring to CBY" && lastMileDelivery === "NV delivery to Client") {
+                        productCode = "Core Standard LM";
+                    } else {
+                        return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Standard" };
+                    }
+                }
+            }
+            
+            // Volume-based logic for >=100kg
+            if (parcelProfile === "Mostly >=100kg per TID") {
+                if (sla === "Economy") {
+                    if (pickup === "NV pickup at Client WH" && lastMileDelivery === "NV delivery to Client") {
+                        productCode = "LTL Economy FMLM";
+                    } else if (pickup === "NV pickup at Client WH" && lastMileDelivery === "Client pickup at NV WH") {
+                        productCode = "LTL Economy FM";
+                    } else if (pickup === "Client to bring to CBY" && lastMileDelivery === "NV delivery to Client") {
+                        productCode = "LTL Economy LM";
+                    }
+                } else if (sla === "Standard") {
+                    if (pickup === "NV pickup at Client WH" && lastMileDelivery === "NV delivery to Client") {
+                        productCode = "LTL Standard FMLM";
+                    } else if (pickup === "Client to bring to CBY" && lastMileDelivery === "NV delivery to Client") {
+                        productCode = "LTL Standard LM";
+                    } else {
+                        return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Standard" };
+                    }
+                }
+            }
+        }
+
+        // 3P Logic
+        if (sellingModel === "3P") {
+            // Check required fields for 3P
+            if (!distributionType || !sla || !parcelProfile || !pickup || !lastMileDelivery || !deliveryPoints) {
+                return { product: "PRODUCT DOESN'T EXIST", subtitle: "please complete all fields" };
+            }
+
+            // Modern Trade cases (Outright or Listed Delivery Point)
+            if (distributionType === "Outright" || 
+                (distributionType === "Consignment" && deliveryPoints === "Listed Delivery Point")) {
+                
+                // Modern Trade with delivery
+                if (lastMileDelivery === "NV delivery to Client") {
+                    if (pickup === "NV pickup at Client WH") {
+                        productCode = `Modern Trade ${sla === "Fixed Delivery Schedule" ? "FDS" : sla} FMLM`;
+                    } else if (pickup === "Client to bring to CBY") {
+                        productCode = `Modern Trade ${sla === "Fixed Delivery Schedule" ? "FDS" : sla} LM`;
+                    }
+                }
+                if (!productCode) {
+                    return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Modern Trade" };
+                }
+            }
+
+            // Non-Listed Delivery Point with Consignment - use same logic as 1P
+            if (distributionType === "Consignment" && deliveryPoints === "Non-Listed Delivery Point") {
+                if (parcelProfile === "Mostly smaller than 100kg per TID") {
+                    if (sla === "Economy") {
+                        if (pickup === "NV pickup at Client WH" && lastMileDelivery === "NV delivery to Client") {
+                            productCode = "Core Economy FMLM";
+                        } else if (pickup === "Client to bring to CBY" && lastMileDelivery === "NV delivery to Client") {
+                            productCode = "Core Economy LM";
+                        }
+                    } else if (sla === "Standard") {
+                        if (pickup === "NV pickup at Client WH" && lastMileDelivery === "NV delivery to Client") {
+                            productCode = "Core Standard FMLM";
+                        } else if (pickup === "Client to bring to CBY" && lastMileDelivery === "NV delivery to Client") {
+                            productCode = "Core Standard LM";
+                        } else {
+                            return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Standard" };
+                        }
+                    }
+                }
+                if (parcelProfile === "Mostly >=100kg per TID") {
+                    if (sla === "Economy") {
+                        if (pickup === "NV pickup at Client WH" && lastMileDelivery === "NV delivery to Client") {
+                            productCode = "LTL Economy FMLM";
+                        } else if (pickup === "NV pickup at Client WH" && lastMileDelivery === "Client pickup at NV WH") {
+                            productCode = "LTL Economy FM";
+                        } else if (pickup === "Client to bring to CBY" && lastMileDelivery === "NV delivery to Client") {
+                            productCode = "LTL Economy LM";
+                        }
+                    } else if (sla === "Standard") {
+                        if (pickup === "NV pickup at Client WH" && lastMileDelivery === "NV delivery to Client") {
+                            productCode = "LTL Standard FMLM";
+                        } else if (pickup === "Client to bring to CBY" && lastMileDelivery === "NV delivery to Client") {
+                            productCode = "LTL Standard LM";
+                        } else {
+                            return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Standard" };
+                        }
+                    }
+                }
+            }
+        }
+
+        return { product: productCode || "PRODUCT DOESN'T EXIST", subtitle: "" };
+    }
 
     function updateRateInfo(productName) {
         const data = serviceData[productName] || {
@@ -149,225 +438,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('minimumChargeValue').textContent = data.minimumCharge;
         document.getElementById('deliveredByValue').textContent = data.deliveredBy;
         document.getElementById('coverageValue').textContent = data.coverage;
+        document.getElementById('rddSlaValue').textContent = productName ? definitionLookup[productName]?.rddSla || '-' : '-';
 
         // Make rate card a clickable link if it's a URL
         if (data.rateCard.startsWith('https://')) {
             document.getElementById('rateCardValue').innerHTML = `<a href="${data.rateCard}" target="_blank">View Rate Card</a>`;
         }
-    }
-
-    function updateProductStatus() {
-        const values = {
-            sellingModel: sellingModel.value,
-            distributionType: distributionType.value,
-            sla: sla.value,
-            parcelProfile: parcelProfile.value,
-            pickup: pickup.value,
-            lastMileDelivery: lastMileDelivery.value,
-            deliveryPoints: deliveryPoints.value
-        };
-
-        console.log('Current values:', values); // Debug log
-
-        const result = calculateProduct(values);
-        productStatus.textContent = result.product || "PRODUCT DOESN'T EXIST";
-        subtitle.textContent = result.subtitle || "";
-
-        // Update rate info based on the product
-        updateRateInfo(result.product);
-    }
-
-    function calculateProduct(values) {
-        // Initial empty check
-        if (!values.sellingModel) {
-            return { product: "", subtitle: "please complete all fields" };
-        }
-
-        // 1P Logic
-        if (values.sellingModel === "1P") {
-            if (!values.sla || !values.parcelProfile || !values.pickup || !values.lastMileDelivery) {
-                return { product: "PRODUCT DOESN'T EXIST", subtitle: "please complete all fields" };
-            }
-
-            if (values.sla === "Fixed Delivery Schedule") {
-                return { product: "PRODUCT DOESN'T EXIST", subtitle: "not available" };
-            }
-
-            // Freight conditions
-            if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "Client pickup at NV WH") {
-                if (values.sla === "Economy") return { product: "Freight", subtitle: "" };
-                if (values.sla === "Standard" || values.sla === "Fixed Delivery Schedule") {
-                    return { product: "Freight auto Economy", subtitle: "" };
-                }
-            }
-
-            // Economy SLA
-            if (values.sla === "Economy") {
-                if (values.parcelProfile === "Mostly smaller than 100kg per TID") {
-                    if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "Core Economy FMLM", subtitle: "" };
-                    }
-                    if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "Core Economy LM", subtitle: "" };
-                    }
-                    if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "Client pickup at NV WH") {
-                        return { product: "explore >=100kg", subtitle: "" };
-                    }
-                }
-                if (values.parcelProfile === "Mostly >=100kg per TID") {
-                    if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "LTL Economy FMLM", subtitle: "" };
-                    }
-                    if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "Client pickup at NV WH") {
-                        return { product: "LTL Economy FM", subtitle: "" };
-                    }
-                    if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "LTL Economy LM", subtitle: "" };
-                    }
-                }
-            }
-
-            // Standard SLA
-            if (values.sla === "Standard") {
-                if (values.parcelProfile === "Mostly smaller than 100kg per TID") {
-                    if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "Core Standard FMLM", subtitle: "" };
-                    }
-                    if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "Core Standard LM", subtitle: "" };
-                    }
-                    return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Standard" };
-                }
-                if (values.parcelProfile === "Mostly >=100kg per TID") {
-                    if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "LTL Standard FMLM", subtitle: "" };
-                    }
-                    if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "LTL Standard LM", subtitle: "" };
-                    }
-                    return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Standard" };
-                }
-            }
-        }
-
-        // 3P Logic
-        if (values.sellingModel === "3P") {
-            if (!values.distributionType || !values.sla || !values.parcelProfile || !values.pickup || !values.lastMileDelivery || !values.deliveryPoints) {
-                return { product: "PRODUCT DOESN'T EXIST", subtitle: "please complete all fields" };
-            }
-
-            // Outright distribution
-            if (values.distributionType === "Outright") {
-                if (values.sla === "Standard") {
-                    if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "Modern Trade SLA FMLM", subtitle: "" };
-                    }
-                    if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "Modern Trade SLA LM", subtitle: "" };
-                    }
-                    return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Modern Trade" };
-                }
-                if (values.sla === "Economy") {
-                    if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "Modern Trade Economy FMLM", subtitle: "" };
-                    }
-                    if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "Modern Trade Economy LM", subtitle: "" };
-                    }
-                    return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Modern Trade" };
-                }
-                if (values.sla === "Fixed Delivery Schedule") {
-                    if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "Modern Trade FDS FMLM", subtitle: "" };
-                    }
-                    if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                        return { product: "Modern Trade FDS LM", subtitle: "" };
-                    }
-                    return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Modern Trade" };
-                }
-            }
-
-            // Consignment distribution
-            if (values.distributionType === "Consignment") {
-                if (values.deliveryPoints === "Listed Delivery Point") {
-                    if (values.sla === "Standard") {
-                        if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                            return { product: "Modern Trade SLA FMLM", subtitle: "" };
-                        }
-                        if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                            return { product: "Modern Trade SLA LM", subtitle: "" };
-                        }
-                        return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Modern Trade" };
-                    }
-                    if (values.sla === "Economy") {
-                        if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                            return { product: "Modern Trade Economy FMLM", subtitle: "" };
-                        }
-                        if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                            return { product: "Modern Trade Economy LM", subtitle: "" };
-                        }
-                        return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Modern Trade" };
-                    }
-                    if (values.sla === "Fixed Delivery Schedule") {
-                        if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                            return { product: "Modern Trade FDS FMLM", subtitle: "" };
-                        }
-                        if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                            return { product: "Modern Trade FDS LM", subtitle: "" };
-                        }
-                        return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Modern Trade" };
-                    }
-                } else {
-                    // Non-Listed Delivery Point
-                    if (values.sla === "Economy") {
-                        if (values.parcelProfile === "Mostly smaller than 100kg per TID") {
-                            if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                                return { product: "Core Economy FMLM", subtitle: "" };
-                            }
-                            if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                                return { product: "Core Economy LM", subtitle: "" };
-                            }
-                            if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "Client pickup at NV WH") {
-                                return { product: "explore >=100kg", subtitle: "" };
-                            }
-                        }
-                        if (values.parcelProfile === "Mostly >=100kg per TID") {
-                            if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                                return { product: "LTL Economy FMLM", subtitle: "" };
-                            }
-                            if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "Client pickup at NV WH") {
-                                return { product: "LTL Economy FM", subtitle: "" };
-                            }
-                            if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                                return { product: "LTL Economy LM", subtitle: "" };
-                            }
-                        }
-                    }
-                    if (values.sla === "Standard") {
-                        if (values.parcelProfile === "Mostly smaller than 100kg per TID") {
-                            if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                                return { product: "Core Standard FMLM", subtitle: "" };
-                            }
-                            if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                                return { product: "Core Standard LM", subtitle: "" };
-                            }
-                            return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Standard" };
-                        }
-                        if (values.parcelProfile === "Mostly >=100kg per TID") {
-                            if (values.pickup === "NV pickup at Client WH" && values.lastMileDelivery === "NV delivery to Client") {
-                                return { product: "LTL Standard FMLM", subtitle: "" };
-                            }
-                            if (values.pickup === "Client to bring to CBY" && values.lastMileDelivery === "NV delivery to Client") {
-                                return { product: "LTL Standard LM", subtitle: "" };
-                            }
-                            return { product: "PRODUCT DOESN'T EXIST", subtitle: "delivery required for Standard" };
-                        }
-                    }
-                }
-            }
-        }
-
-        return { product: "PRODUCT DOESN'T EXIST", subtitle: "" };
     }
 
     // Initial check

@@ -3,161 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ninja Van Service</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>B2B Services Mapping</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo-container">
-                <img src="images/ninjavan-logo.png" alt="Ninja Van Logo" class="logo">
-            </div>
-            <h1 class="header-title">B2B Services Mapping</h1>
-        </div>
-    </header>
+    <div class="header">
+        <img src="images/ninjavan-logo.png" alt="Ninja Van Logo" class="logo">
+        <h1>B2B Services Mapping</h1>
+    </div>
 
-    <div class="container">
-        <div class="content-wrapper">
-            <div class="main-section">
-                <h2 class="section-title">INPUT HERE ℹ️</h2>
-                <form id="deliveryForm">
-                    <div class="form-group">
-                        <label>Selling Model</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="sellingModel3P" name="sellingModel" value="3P" checked>
-                                <label for="sellingModel3P">3P</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="sellingModel1P" name="sellingModel" value="1P">
-                                <label for="sellingModel1P">1P</label>
-                            </div>
-                        </div>
+    <div class="main-container">
+        <div class="form-container">
+            <h2>INPUT HERE <span style="color: #3498db;">ℹ️</span></h2>
+            
+            <div class="form-group">
+                <label>Selling Model</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="3p" name="sellingModel" value="3P">
+                        <label for="3p">3P</label>
                     </div>
-                    <div class="form-group">
-                        <label>Distribution Type</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="distributionTypeConsignment" name="distributionType" value="Consignment" checked>
-                                <label for="distributionTypeConsignment">Consignment</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="distributionTypeOutright" name="distributionType" value="Outright">
-                                <label for="distributionTypeOutright">Outright</label>
-                            </div>
-                        </div>
+                    <div class="radio-option">
+                        <input type="radio" id="1p" name="sellingModel" value="1P">
+                        <label for="1p">1P</label>
                     </div>
-                    <div class="form-group">
-                        <label>SLA</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="slaFixed" name="sla" value="Fixed Delivery Schedule" checked>
-                                <label for="slaFixed">Fixed Delivery Schedule</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="slaStandard" name="sla" value="Standard">
-                                <label for="slaStandard">Standard</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="slaEconomy" name="sla" value="Economy">
-                                <label for="slaEconomy">Economy</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Parcel Profile</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="parcelProfileSmall" name="parcelProfile" value="Mostly smaller than 100kg per TID" checked>
-                                <label for="parcelProfileSmall">Mostly smaller than 100kg per TID</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="parcelProfileLarge" name="parcelProfile" value="Mostly >=100kg per TID">
-                                <label for="parcelProfileLarge">Mostly >=100kg per TID</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Pickup</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="pickupClient" name="pickup" value="Client to bring to CBY" checked>
-                                <label for="pickupClient">Client to bring to CBY</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="pickupNV" name="pickup" value="NV pickup at Client WH">
-                                <label for="pickupNV">NV pickup at Client WH</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Last Mile Delivery</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="lastMileDeliveryClient" name="lastMileDelivery" value="Client pickup at NV WH" checked>
-                                <label for="lastMileDeliveryClient">Client pickup at NV WH</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="lastMileDeliveryNV" name="lastMileDelivery" value="NV delivery to Client">
-                                <label for="lastMileDeliveryNV">NV delivery to Client</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Delivery Points</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="deliveryPointsListed" name="deliveryPoints" value="Listed Delivery Point" checked>
-                                <label for="deliveryPointsListed">Listed Delivery Point</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="deliveryPointsNotListed" name="deliveryPoints" value="Not in the List">
-                                <label for="deliveryPointsNotListed">Not in the List</label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="side-section">
-                <div class="service-status">
-                    <h2 class="service-title">Ninja Van Service</h2>
-                    <div id="productStatus" class="status-message"></div>
-                    <div id="subtitle" class="subtitle"></div>
                 </div>
+            </div>
 
-                <div class="rate-info">
-                    <div class="info-row">
-                        <span class="info-label">Rate Card:</span>
-                        <span id="rateCardValue" class="info-value">-</span>
+            <div class="form-group">
+                <label>Distribution Type</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="consignment" name="distributionType" value="Consignment">
+                        <label for="consignment">Consignment</label>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Rate Charge:</span>
-                        <span id="rateChargeValue" class="info-value">-</span>
+                    <div class="radio-option">
+                        <input type="radio" id="outright" name="distributionType" value="Outright">
+                        <label for="outright">Outright</label>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Minimum Charge:</span>
-                        <span id="minimumChargeValue" class="info-value">-</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>SLA</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="fixed" name="sla" value="Fixed Delivery Schedule">
+                        <label for="fixed">Fixed Delivery Schedule</label>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Delivered by:</span>
-                        <span id="deliveredByValue" class="info-value">-</span>
+                    <div class="radio-option">
+                        <input type="radio" id="standard" name="sla" value="Standard">
+                        <label for="standard">Standard</label>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">Coverage:</span>
-                        <span id="coverageValue" class="info-value">-</span>
+                    <div class="radio-option">
+                        <input type="radio" id="economy" name="sla" value="Economy">
+                        <label for="economy">Economy</label>
                     </div>
-                    <div class="info-row">
-                        <span class="info-label">RDD SLA:</span>
-                        <span id="rddSlaValue" class="info-value">-</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Parcel Profile</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="smaller100" name="parcelProfile" value="Mostly smaller than 100kg per TID">
+                        <label for="smaller100">Mostly smaller than 100kg per TID</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="larger100" name="parcelProfile" value="Mostly >=100kg per TID">
+                        <label for="larger100">Mostly >=100kg per TID</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Pickup</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="clientBring" name="pickup" value="Client to bring to CBY">
+                        <label for="clientBring">Client to bring to CBY</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nvPickup" name="pickup" value="NV pickup at Client WH">
+                        <label for="nvPickup">NV pickup at Client WH</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Last Mile Delivery</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="clientPickup" name="lastMile" value="Client pickup at NV WH">
+                        <label for="clientPickup">Client pickup at NV WH</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nvDelivery" name="lastMile" value="NV delivery to Client">
+                        <label for="nvDelivery">NV delivery to Client</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Delivery Points</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="listedPoints" name="deliveryPoints" value="Listed Delivery Point">
+                        <label for="listedPoints">Listed Delivery Point</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="notListed" name="deliveryPoints" value="Not in the List">
+                        <label for="notListed">Not in the List</label>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="rate-info">
+            <h2>Ninja Van Service</h2>
+            <div class="product-status">PRODUCT DOESN'T EXIST</div>
+            <div class="subtitle">delivery required for Modern Trade</div>
+            <div class="info-row">
+                <div class="info-label">Rate Card:</div>
+                <div class="info-value">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Rate Charge:</div>
+                <div class="info-value">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Minimum Charge:</div>
+                <div class="info-value">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Delivered by:</div>
+                <div class="info-value">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Coverage:</div>
+                <div class="info-value">-</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">RDD SLA:</div>
+                <div class="info-value">-</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="reference-section">
         <div class="delivery-points">
             <h3>Listed Delivery Points</h3>
             <div class="points-list">
@@ -190,36 +184,37 @@
                     </ul>
                 </div>
             </div>
+        </div>
 
-            <div class="sla-reference">
-                <h3>SLAs for Reference (Islands not included)</h3>
-                <div class="sla-grid">
-                    <div class="sla-column">
-                        <h4>Standard</h4>
-                        <ul>
-                            <li>Metro Manila - 1 to 3 days</li>
-                            <li>GMA - 1 to 3 days</li>
-                            <li>North Luzon - 3 to 5 days</li>
-                            <li>South Luzon - 3 to 5 days</li>
-                            <li>Visayas - 5 to 7 days</li>
-                            <li>Mindanao - 5 to 7 days</li>
-                        </ul>
-                    </div>
-                    <div class="sla-column">
-                        <h4>Economy</h4>
-                        <ul>
-                            <li>Metro Manila - 4 to 6 days</li>
-                            <li>GMA - 4 to 6 days</li>
-                            <li>North Luzon - 4 to 6 days</li>
-                            <li>South Luzon - 4 to 6 days</li>
-                            <li>Visayas - 6 to 10 days</li>
-                            <li>Mindanao - 10 to 14 days</li>
-                        </ul>
-                    </div>
+        <div class="sla-reference">
+            <h3>SLAs for Reference (Islands not included)</h3>
+            <div class="sla-grid">
+                <div class="sla-column">
+                    <h4>Standard</h4>
+                    <ul>
+                        <li>Metro Manila - 1 to 3 days</li>
+                        <li>GMA - 1 to 3 days</li>
+                        <li>North Luzon - 3 to 5 days</li>
+                        <li>South Luzon - 3 to 5 days</li>
+                        <li>Visayas - 5 to 7 days</li>
+                        <li>Mindanao - 5 to 7 days</li>
+                    </ul>
+                </div>
+                <div class="sla-column">
+                    <h4>Economy</h4>
+                    <ul>
+                        <li>Metro Manila - 4 to 6 days</li>
+                        <li>GMA - 4 to 6 days</li>
+                        <li>North Luzon - 4 to 6 days</li>
+                        <li>South Luzon - 4 to 6 days</li>
+                        <li>Visayas - 6 to 10 days</li>
+                        <li>Mindanao - 10 to 14 days</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html> 

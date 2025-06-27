@@ -50,71 +50,71 @@ document.addEventListener('DOMContentLoaded', function() {
     const definitionLookup = {
         "Core Standard FMLM": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         },
         "Core Standard LM": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         },
         "LTL Standard FMLM": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         },
         "LTL Standard LM": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         },
         "Core Economy FMLM": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         },
         "Core Economy LM": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         },
         "LTL Economy FMLM": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         },
         "LTL Economy FM": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         },
         "LTL Economy LM": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         },
         "Modern Trade SLA FMLM": {
             rateCard: "Custom, approval required",
-            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
+            rdoSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
         "Modern Trade SLA LM": {
             rateCard: "Custom, approval required",
-            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
+            rdoSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
         "Modern Trade Economy FMLM": {
             rateCard: "Custom, approval required",
-            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
+            rdoSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
         "Modern Trade Economy LM": {
             rateCard: "Custom, approval required",
-            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
+            rdoSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
         "Modern Trade FDS FMLM": {
             rateCard: "Custom, approval required",
-            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
+            rdoSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
         "Modern Trade FDS LM": {
             rateCard: "Custom, approval required",
-            rddSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
+            rdoSla: "(Forward SLA x 2) + 3 working days, upon pickup of new shipment"
         },
         "Freight": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         },
         "Freight auto Economy": {
             rateCard: "https://docs.google.com/spreadsheets",
-            rddSla: "Forward SLA x 2) + 3 working days"
+            rdoSla: "Forward SLA x 2) + 3 working days"
         }
     };
 
@@ -438,7 +438,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('minimumChargeValue').textContent = data.minimumCharge;
         document.getElementById('deliveredByValue').textContent = data.deliveredBy;
         document.getElementById('coverageValue').textContent = data.coverage;
-        document.getElementById('rddSlaValue').textContent = productName ? definitionLookup[productName]?.rddSla || '-' : '-';
+        document.getElementById('rdoSlaValue').textContent = productName ? definitionLookup[productName]?.rdoSla || '-' : '-';
 
         // Make rate card a clickable link if it's a URL
         if (data.rateCard.startsWith('https://')) {

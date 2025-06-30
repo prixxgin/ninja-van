@@ -4,6 +4,32 @@ document.addEventListener('DOMContentLoaded', function() {
         return selected ? selected.value : '';
     }
 
+    // Lookup table simulating Definition!I:I and Definition!J:J
+    const lookupTable = [
+        { key: 'Social Media ID', value: 'Restock Service Offering' },
+        { key: 'Freight', value: 'Freight' },
+        { key: 'Core Standard FMLM', value: 'Restock Standard Parcel' },
+        { key: 'Core Standard LM', value: 'Restock Standard Parcel' },
+        { key: 'LTL Standard FMLM', value: 'Restock Standard LTL' },
+        { key: 'LTL Standard LM', value: 'Restock Standard LTL' },
+        { key: 'Core Economy FMLM', value: 'Restock Economy Parcel' },
+        { key: 'Core Economy LM', value: 'Restock Economy Parcel' },
+        { key: 'LTL Economy FMLM', value: 'Restock Economy LTL' },
+        { key: 'LTL Economy FM', value: 'Restock Economy LTL' },
+        { key: 'LTL Economy LM', value: 'Restock Economy LTL' },
+        { key: 'Modern Trade SLA FMLM', value: 'Restock Modern Trade' },
+        { key: 'Modern Trade SLA LM', value: 'Restock Modern Trade' },
+        { key: 'Modern Trade Economy FMLM', value: 'Restock Modern Trade' },
+        { key: 'Modern Trade Economy LM', value: 'Restock Modern Trade' },
+        { key: 'Modern Trade FDS FMLM', value: 'Restock Modern Trade' },
+        { key: 'Modern Trade FDS LM', value: 'Restock Modern Trade' }
+    ];
+
+    function xlookup(key) {
+        const found = lookupTable.find(row => row.key === key);
+        return found ? found.value : '';
+    }
+
     function evaluateCombo() {
         const sellingModel = getSelectedValue('sellingModel');
         const distributionType = getSelectedValue('distributionType');
@@ -160,6 +186,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         document.getElementById('comboResult').textContent = result;
+        // Lookup logic
+        let lookupValue = '';
+        if (result && !result.toLowerCase().includes('please complete') && !result.toLowerCase().includes('not available') && !result.toLowerCase().includes('delivery required') && !result.toLowerCase().includes('explore')) {
+            lookupValue = xlookup(result);
+        }
+        document.getElementById('lookupResult').textContent = lookupValue;
     }
 
     // Listen for changes on all radio buttons

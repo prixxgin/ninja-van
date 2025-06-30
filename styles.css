@@ -306,3 +306,11 @@ body {
     color: #00c3ff;
     min-height: 24px;
 }
+
+.lookup-result {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #ffb300;
+    min-height: 20px;
+}

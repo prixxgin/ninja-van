@@ -292,3 +292,17 @@ body {
         font-size: 20px;
     }
 }
+
+.disabled-group {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(60%);
+}
+
+.combo-result {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #00c3ff;
+    min-height: 24px;
+}

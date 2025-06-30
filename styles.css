@@ -308,9 +308,9 @@ body {
 }
 
 .lookup-result {
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: bold;
+    color: #FFD700;
     margin-bottom: 10px;
-    color: #ffb300;
-    min-height: 20px;
+    letter-spacing: 0.5px;
 }

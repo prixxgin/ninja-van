@@ -4,33 +4,55 @@ document.addEventListener('DOMContentLoaded', function() {
         return selected ? selected.value : '';
     }
 
-    // Lookup table simulating Definition!I:I and Definition!J:J
-    const lookupTable = [
-        { key: 'Social Media ID', value: 'Restock Service Offering' },
-        { key: 'Freight', value: 'Freight' },
-        { key: 'Core Standard FMLM', value: 'Restock Standard Parcel' },
-        { key: 'Core Standard LM', value: 'Restock Standard Parcel' },
-        { key: 'LTL Standard FMLM', value: 'Restock Standard LTL' },
-        { key: 'LTL Standard LM', value: 'Restock Standard LTL' },
-        { key: 'Core Economy FMLM', value: 'Restock Economy Parcel' },
-        { key: 'Core Economy LM', value: 'Restock Economy Parcel' },
-        { key: 'LTL Economy FMLM', value: 'Restock Economy LTL' },
-        { key: 'LTL Economy FM', value: 'Restock Economy LTL' },
-        { key: 'LTL Economy LM', value: 'Restock Economy LTL' },
-        { key: 'Modern Trade SLA FMLM', value: 'Restock Modern Trade' },
-        { key: 'Modern Trade SLA LM', value: 'Restock Modern Trade' },
-        { key: 'Modern Trade Economy FMLM', value: 'Restock Modern Trade' },
-        { key: 'Modern Trade Economy LM', value: 'Restock Modern Trade' },
-        { key: 'Modern Trade FDS FMLM', value: 'Restock Modern Trade' },
-        { key: 'Modern Trade FDS LM', value: 'Restock Modern Trade' }
-    ];
-
-    function xlookup(key) {
-        const found = lookupTable.find(row => row.key === key);
-        return found ? found.value : '';
+    // New function to enable/disable Distribution Type
+    function updateDistributionTypeState() {
+        const sellingModel = getSelectedValue('sellingModel');
+        // Find the Distribution Type form-group by label text
+        let group = null;
+        document.querySelectorAll('.form-group').forEach(fg => {
+            const label = fg.querySelector('label');
+            if (label && label.textContent.trim() === 'Distribution Type') {
+                group = fg;
+            }
+        });
+        const radioInputs = group ? group.querySelectorAll('input[type="radio"]') : [];
+        if (sellingModel === '1P') {
+            if (group) group.classList.add('disabled-group');
+            radioInputs.forEach(input => {
+                input.disabled = true;
+                input.checked = false;
+            });
+        } else {
+            if (group) group.classList.remove('disabled-group');
+            radioInputs.forEach(input => {
+                input.disabled = false;
+            });
+        }
     }
 
+    // Lookup table for Distribution Tab column I/J
+    const distributionLookup = {
+        "Social Media ID": "Restock Service Offering",
+        "Freight": "Freight",
+        "Core Standard FMLM": "Restock Standard Parcel",
+        "Core Standard LM": "Restock Standard Parcel",
+        "LTL Standard FMLM": "Restock Standard LTL",
+        "LTL Standard LM": "Restock Standard LTL",
+        "Core Economy FMLM": "Restock Economy Parcel",
+        "Core Economy LM": "Restock Economy Parcel",
+        "LTL Economy FMLM": "Restock Economy LTL",
+        "LTL Economy FM": "Restock Economy LTL",
+        "LTL Economy LM": "Restock Economy LTL",
+        "Modern Trade SLA FMLM": "Restock Modern Trade",
+        "Modern Trade SLA LM": "Restock Modern Trade",
+        "Modern Trade Economy FMLM": "Restock Modern Trade",
+        "Modern Trade Economy LM": "Restock Modern Trade",
+        "Modern Trade FDS FMLM": "Restock Modern Trade",
+        "Modern Trade FDS LM": "Restock Modern Trade"
+    };
+
     function evaluateCombo() {
+        updateDistributionTypeState();
         const sellingModel = getSelectedValue('sellingModel');
         const distributionType = getSelectedValue('distributionType');
         const sla = getSelectedValue('sla');
@@ -186,12 +208,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         document.getElementById('comboResult').textContent = result;
-        // Lookup logic
-        let lookupValue = '';
-        if (result && !result.toLowerCase().includes('please complete') && !result.toLowerCase().includes('not available') && !result.toLowerCase().includes('delivery required') && !result.toLowerCase().includes('explore')) {
-            lookupValue = xlookup(result);
+
+        // Lookup logic for reference result
+        let lookupResult = '';
+        if (!result) {
+            lookupResult = '';
+        } else if (result === 'please complete all fields') {
+            lookupResult = '-';
+        } else {
+            lookupResult = distributionLookup[result] || "PRODUCT DOESN'T EXIST";
         }
-        document.getElementById('lookupResult').textContent = lookupValue;
+        // Show in a new div above Ninja Van Service result
+        let lookupDiv = document.getElementById('lookupResult');
+        if (!lookupDiv) {
+            lookupDiv = document.createElement('div');
+            lookupDiv.id = 'lookupResult';
+            lookupDiv.className = 'lookup-result';
+            const comboResultDiv = document.getElementById('comboResult');
+            comboResultDiv.parentNode.insertBefore(lookupDiv, comboResultDiv);
+        }
+        lookupDiv.textContent = lookupResult;
     }
 
     // Listen for changes on all radio buttons

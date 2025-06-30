@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.info-row')[2].querySelector('.info-value').textContent = info.minCharge || '-';
         document.querySelectorAll('.info-row')[3].querySelector('.info-value').textContent = info.deliveredBy || '-';
         document.querySelectorAll('.info-row')[5].querySelector('.info-value').textContent = info.coverage || '-';
-        document.querySelectorAll('.info-row')[6].querySelector('.info-value').textContent = '(Forward SLA x 2) + 3 working days, upon pickup of new shipment';
+        document.querySelectorAll('.info-row')[6].querySelector('.info-value').innerHTML = 'RDO SLA - (Forward SLA x 2) + 3 working days<br>RDO SLA - (Forward SLA x 2) + 3 working days, upon pickup of new shipment';
     }
 
     // Listen for changes on all radio buttons

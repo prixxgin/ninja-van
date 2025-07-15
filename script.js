@@ -65,21 +65,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Lookup table for Rate Info Panel (yellow result)
     const rateInfoLookup = {
         "Restock Standard Parcel": {
-            rateCard: "https://docs.google.com/spreadsheets/d/149E9SFiFzf701d-kSA0AwLGu8of9nInLeP-K0FS3ub4/edit?gid=0#gid=0",
+            rateCard: "https://docs.google.com/spreadsheets/d/1JgoVFUzUdZdmlzf9iV3lC4QjrGzcQB2Jsh-Xu7Tsf6w/edit?gid=0#gid=0",
             rateCharge: "KG per TID",
             minCharge: "0 KG",
             deliveredBy: "Core",
             coverage: "All Core coverage"
         },
         "Restock Standard LTL": {
-            rateCard: "https://docs.google.com/document/d/1hrWgDJa-Cn6aNMz4sZTkCEHbBE58VPYv5yjIZxsLG-0/edit?tab=t.ev6l0za2xai1",
+            rateCard: "https://docs.google.com/spreadsheets/d/1JgoVFUzUdZdmlzf9iV3lC4QjrGzcQB2Jsh-Xu7Tsf6w/edit?gid=155092192#gid=155092192",
             rateCharge: "CBM per MPS",
             minCharge: ".2 CBM",
             deliveredBy: "Restock",
             coverage: "No islands"
         },
         "Restock Economy Parcel": {
-            rateCard: "https://docs.google.com/spreadsheets/d/149E9SFiFzf701d-kSA0AwLGu8of9nInLeP-K0FS3ub4/edit?gid=988761840#gid=988761840",
+            rateCard: "https://docs.google.com/spreadsheets/d/1JgoVFUzUdZdmlzf9iV3lC4QjrGzcQB2Jsh-Xu7Tsf6w/edit?gid=349064173#gid=349064173",
             rateCharge: "KG per TID",
             minCharge: "0 KG",
             deliveredBy: "Core",
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
             coverage: "NCR, Calaba, South Luzon"
         },
         "Freight": {
-            rateCard: "https://docs.google.com/document/d/1vyJ9d2xhzBhYrYauulVzEtjc0IqGIJcdkbfAmlG0EGU/edit?tab=t.ev6l0za2xai1",
+            rateCard: "https://docs.google.com/spreadsheets/d/1JgoVFUzUdZdmlzf9iV3lC4QjrGzcQB2Jsh-Xu7Tsf6w/edit?gid=341024989#gid=341024989",
             rateCharge: "CBM per MPS",
             minCharge: "1 CBM",
             deliveredBy: "none",

@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             coverage: "All Core coverage"
         },
         "Restock Economy LTL": {
-            rateCard: "https://docs.google.com/document/d/11G1G_iYJMOLReVfjApwGx5TnGFTV1NTK3GptJf1UArQ/edit?tab=t.ev6l0za2xai1",
+            rateCard: "ASK BUSINESS DEV.",
             rateCharge: "CBM per MPS",
             minCharge: ".5 CBM",
             deliveredBy: "Restock",
